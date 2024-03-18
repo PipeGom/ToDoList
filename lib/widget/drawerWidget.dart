@@ -1,9 +1,15 @@
 import "package:flutter/material.dart";
+import "package:to_do_list/controller/taskController.dart";
+import "package:to_do_list/widget/view/taskCreateView.dart";
+import "package:to_do_list/widget/view/taskListView.dart";
+import "package:to_do_list/widget/view/taskSearchDate.dart";
+import "package:to_do_list/widget/view/taskSearchTitle.dart";
+import "package:to_do_list/widget/view/taskUpcomingView.dart";
 
 class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({
-    super.key,
-  });
+  TaskListController con;
+
+  DrawerWidget({super.key, required this.con});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +36,13 @@ class DrawerWidget extends StatelessWidget {
               Icons.add_circle,
               color: Color.fromARGB(255, 255, 136, 0),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TaskCreateView(controller: con),
+                  ));
+            },
           ),
           ListTile(
             leading: Icon(
@@ -38,7 +50,15 @@ class DrawerWidget extends StatelessWidget {
               color: Color.fromARGB(255, 255, 136, 0),
             ),
             title: const Text('Buscador'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TaskSearchTitle(
+                      con: con,
+                    ),
+                  ));
+            },
           ),
           ListTile(
             leading: Icon(
@@ -46,7 +66,13 @@ class DrawerWidget extends StatelessWidget {
               color: Color.fromARGB(255, 255, 136, 0),
             ),
             title: const Text('Bandeja de entrada'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TaskListView(conUpdated: con),
+                  ));
+            },
           ),
           ListTile(
             leading: Icon(
@@ -54,7 +80,13 @@ class DrawerWidget extends StatelessWidget {
               color: Color.fromARGB(255, 255, 136, 0),
             ),
             title: const Text('Hoy'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TaskSearchDate(con: con),
+                  ));
+            },
           ),
           ListTile(
             leading: Icon(
@@ -62,7 +94,13 @@ class DrawerWidget extends StatelessWidget {
               color: Color.fromARGB(255, 255, 136, 0),
             ),
             title: const Text('Próximo'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TaskUpcomingView(con: con),
+                  ));
+            },
           ),
           ListTile(
             leading: Icon(

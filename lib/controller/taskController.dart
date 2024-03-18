@@ -3,6 +3,7 @@ import 'package:to_do_list/models/task.dart';
 
 class TaskListController {
   List<Task> tasks = [];
+  List<Task>? display_list;
 
   TaskListController() {
     tasks = [
@@ -40,5 +41,22 @@ class TaskListController {
       print(task.deadLine);
       print(task.description);
     }
+  }
+
+  void updateTask(
+      TextEditingController title,
+      TextEditingController description,
+      TextEditingController deadLine,
+      int index) {
+    tasks[index] = Task(
+        title.text, false, DateTime.parse(deadLine.text), description.text);
+  }
+
+  List<Task> searchTask(List<Task> task, String query) {
+    print(task[0]);
+    return task.where((task) {
+      return task.title.toLowerCase().contains(query.toLowerCase()) ||
+          task.description.toLowerCase().contains(query.toLowerCase());
+    }).toList();
   }
 }

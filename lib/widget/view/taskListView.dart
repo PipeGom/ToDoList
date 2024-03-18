@@ -46,8 +46,10 @@ class _TaskListViewState extends State<TaskListView> {
                         )));
           },
         ),
-        drawer: const SafeArea(
-          child: DrawerWidget(),
+        drawer: SafeArea(
+          child: DrawerWidget(
+            con: _con,
+          ),
         ),
         appBar: AppBar(
           title: Text('ToDoList'),
@@ -125,7 +127,11 @@ class _TaskListViewState extends State<TaskListView> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: ((context) => TaskDetailView(task: task))),
+                    builder: ((context) => TaskDetailView(
+                          controller: _con,
+                          task: task,
+                          index: index,
+                        ))),
               );
             },
           );

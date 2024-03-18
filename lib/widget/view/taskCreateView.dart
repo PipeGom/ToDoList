@@ -62,7 +62,7 @@ class _TaskCreateViewState extends State<TaskCreateView> {
                 prefixIcon: Icon(Icons.calendar_today),
                 enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
                 focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue)),
+                    borderSide: BorderSide(color: Colors.purple)),
               ),
               readOnly: true,
               onTap: () {
@@ -73,22 +73,38 @@ class _TaskCreateViewState extends State<TaskCreateView> {
           SizedBox(
             height: 30,
           ),
-          ElevatedButton(
-              onPressed: () {
-                widget.controller
-                    .createTask(_textTitulo, _textDescription, _dateCon);
-                print("Task created");
-                setState(() {});
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: ((context) => TaskListView(
-                              conUpdated: widget.controller,
-                            ))));
-              },
-              child: Text('Crear')),
-          Text(
-              'Esta son las tareas luego de crear${widget.controller.getTasks()}')
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    widget.controller
+                        .createTask(_textTitulo, _textDescription, _dateCon);
+                    print("Task created");
+                    setState(() {});
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => TaskListView(
+                                  conUpdated: widget.controller,
+                                ))));
+                  },
+                  child: Text('Crear')),
+              SizedBox(
+                width: 30,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => TaskListView(
+                                  conUpdated: widget.controller,
+                                ))));
+                  },
+                  child: Text('Cancelar'))
+            ],
+          ),
         ],
       ),
     );
