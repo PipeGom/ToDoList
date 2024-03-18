@@ -15,6 +15,9 @@ class _TaskDetailViewState extends State<TaskDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Editar'),
+      ),
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,

@@ -1,26 +1,50 @@
+import "dart:async";
+
 import "package:flutter/material.dart";
+import "package:flutter/scheduler.dart";
 
 import "package:to_do_list/controller/taskController.dart";
 import "package:to_do_list/models/task.dart";
 import "package:to_do_list/widget/drawerWidget.dart";
+import "package:to_do_list/widget/view/taskCreateView.dart";
 import "package:to_do_list/widget/view/taskDetailView.dart";
 
 class TaskListView extends StatefulWidget {
-  TaskListView({super.key});
+  late TaskListController? conUpdated;
+
+  TaskListView({super.key, this.conUpdated});
 
   @override
   State<TaskListView> createState() => _TaskListViewState();
 }
 
 class _TaskListViewState extends State<TaskListView> {
-  final TaskListController _con = TaskListController();
+  late TaskListController _con;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.conUpdated == null) {
+      _con = TaskListController();
+    } else {
+      _con = widget.conUpdated!;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TaskCreateView(
+                          controller: _con,
+                        )));
+          },
         ),
         drawer: const SafeArea(
           child: DrawerWidget(),
@@ -97,10 +121,12 @@ class _TaskListViewState extends State<TaskListView> {
               ),
             ),
             onTap: () {
+              setState(() {});
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) => TaskDetailView(task: task))));
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => TaskDetailView(task: task))),
+              );
             },
           );
         });
