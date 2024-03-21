@@ -62,6 +62,7 @@ class _TaskDetailViewState extends State<TaskDetailView> {
                   margin: EdgeInsets.symmetric(horizontal: 40),
                   child: TextField(
                     controller: _textDescription,
+                    maxLines: null,
                     decoration: InputDecoration(
                         suffixIcon: Icon(Icons.edit),
                         label: Text('Descripción'),

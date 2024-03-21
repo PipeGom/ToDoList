@@ -14,7 +14,6 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Color.fromARGB(255, 255, 248, 240),
       child: ListView(
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
