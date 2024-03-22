@@ -113,7 +113,8 @@ class _TaskSearchTitleState extends State<TaskSearchTitle> {
                 IconButton(
                     onPressed: () {
                       setState(() {
-                        widget.con!.deleteTask(display_list?[index] as Task);
+                        widget.con!
+                            .deleteTask(display_list?[index] as Task, context);
                       });
                     },
                     icon: Icon(

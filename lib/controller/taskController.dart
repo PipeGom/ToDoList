@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:to_do_list/models/task.dart';
+import 'package:to_do_list/utils/mySnackBar.dart';
 
 class TaskListController {
   List<Task> tasks = [];
@@ -20,7 +21,7 @@ class TaskListController {
     return tasks;
   }
 
-  void deleteTask(Task task) {
+  void deleteTask(Task task, context) {
     // ignore: unused_local_variable
     for (int i = 0; i < tasks.length; i++) {
       if (tasks[i].title == task.title) {
@@ -28,18 +29,27 @@ class TaskListController {
         break;
       }
     }
+    MySnackbar.show(context, "Tarea eliminada con éxito");
   }
 
-  void createTask(TextEditingController title,
-      TextEditingController description, TextEditingController deadLine) {
-    tasks.add(Task(
-        title.text, false, DateTime.parse(deadLine.text), description.text));
+  void createTask(
+      TextEditingController title,
+      TextEditingController description,
+      TextEditingController deadLine,
+      context) {
+    if (title.text != '' && description.text != '' && deadLine.text != '') {
+      tasks.add(Task(
+          title.text, false, DateTime.parse(deadLine.text), description.text));
 
-    for (Task task in tasks) {
-      print(task.title);
-      print(task.completed);
-      print(task.deadLine);
-      print(task.description);
+      for (Task task in tasks) {
+        print(task.title);
+        print(task.completed);
+        print(task.deadLine);
+        print(task.description);
+      }
+      MySnackbar.show(context, "Tarea creada con éxito");
+    } else {
+      MySnackbar.show(context, "Debes diligenciar todos los campos");
     }
   }
 
@@ -47,9 +57,15 @@ class TaskListController {
       TextEditingController title,
       TextEditingController description,
       TextEditingController deadLine,
-      int index) {
-    tasks[index] = Task(
-        title.text, false, DateTime.parse(deadLine.text), description.text);
+      int index,
+      context) {
+    if (title.text != '' && description.text != '' && deadLine.text != '') {
+      tasks[index] = Task(
+          title.text, false, DateTime.parse(deadLine.text), description.text);
+      MySnackbar.show(context, "Tarea editada con éxito");
+    } else {
+      MySnackbar.show(context, "Debes diligenciar todos los campos");
+    }
   }
 
   List<Task> searchTask(List<Task> task, String query) {

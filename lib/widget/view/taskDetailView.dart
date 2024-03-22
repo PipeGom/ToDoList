@@ -98,16 +98,24 @@ class _TaskDetailViewState extends State<TaskDetailView> {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          widget.controller.updateTask(_textTitulo,
-                              _textDescription, _dateCon, widget.index);
-                          print("Task created");
+                          widget.controller.updateTask(
+                              _textTitulo,
+                              _textDescription,
+                              _dateCon,
+                              widget.index,
+                              context);
+
                           setState(() {});
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => TaskListView(
-                                        conUpdated: widget.controller,
-                                      ))));
+                          if (_textTitulo.text != '' &&
+                              _textDescription.text != '' &&
+                              _dateCon != '') {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => TaskListView(
+                                          conUpdated: widget.controller,
+                                        ))));
+                          }
                         },
                         child: Text('Actualizar')),
                     SizedBox(

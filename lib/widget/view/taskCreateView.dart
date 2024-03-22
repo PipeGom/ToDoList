@@ -78,16 +78,20 @@ class _TaskCreateViewState extends State<TaskCreateView> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    widget.controller
-                        .createTask(_textTitulo, _textDescription, _dateCon);
+                    widget.controller.createTask(
+                        _textTitulo, _textDescription, _dateCon, context);
                     print("Task created");
                     setState(() {});
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => TaskListView(
-                                  conUpdated: widget.controller,
-                                ))));
+                    if (_textTitulo.text != '' &&
+                        _textDescription.text != '' &&
+                        _dateCon != '') {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => TaskListView(
+                                    conUpdated: widget.controller,
+                                  ))));
+                    }
                   },
                   child: Text('Crear')),
               SizedBox(

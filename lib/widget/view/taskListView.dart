@@ -103,7 +103,7 @@ class _TaskListViewState extends State<TaskListView> {
                 IconButton(
                     onPressed: () {
                       setState(() {
-                        _con.deleteTask(task);
+                        _con.deleteTask(task, context);
                       });
                     },
                     icon: Icon(
