@@ -64,7 +64,7 @@ class DrawerWidget extends StatelessWidget {
               Icons.inbox_outlined,
               color: Color.fromARGB(255, 255, 136, 0),
             ),
-            title: const Text('Bandeja de entrada'),
+            title: const Text('Mis Tareas'),
             onTap: () {
               Navigator.push(
                   context,
@@ -100,15 +100,7 @@ class DrawerWidget extends StatelessWidget {
                     builder: (context) => TaskUpcomingView(con: con),
                   ));
             },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.filter_list_alt,
-              color: Color.fromARGB(255, 255, 136, 0),
-            ),
-            title: const Text('Filtros y Etiquetas'),
-            onTap: () {},
-          ),
+          )
         ],
       ),
     );

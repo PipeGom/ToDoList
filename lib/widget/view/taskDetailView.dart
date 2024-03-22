@@ -97,6 +97,9 @@ class _TaskDetailViewState extends State<TaskDetailView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
+                        style: const ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                                Color.fromARGB(255, 253, 233, 209))),
                         onPressed: () {
                           widget.controller.updateTask(
                               _textTitulo,
@@ -122,6 +125,9 @@ class _TaskDetailViewState extends State<TaskDetailView> {
                       width: 30,
                     ),
                     ElevatedButton(
+                        style: const ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                                Color.fromARGB(255, 253, 233, 209))),
                         onPressed: () {
                           Navigator.push(
                               context,

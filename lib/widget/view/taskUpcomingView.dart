@@ -16,6 +16,7 @@ class TaskUpcomingView extends StatefulWidget {
 class _TaskUpcomingViewState extends State<TaskUpcomingView> {
   TextEditingController _textController = TextEditingController();
   List<Task>? display_list;
+  bool _hasTasks = false;
 
   @override
   void initState() {
@@ -48,25 +49,30 @@ class _TaskUpcomingViewState extends State<TaskUpcomingView> {
 
   @override
   Widget build(BuildContext context) {
+    _hasTasks = widget.con!.tasks.isNotEmpty;
     return Scaffold(
         appBar: AppBar(
           title: Text('Pronto'),
         ),
-        body: Column(
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: display_list!.length,
-                itemBuilder: (context, index) {
-                  return ListTileSearchedUpcomingTasks(index, context);
-                },
-              ),
-            )
-          ],
-        ));
+        body: _hasTasks ? listTasks() : noTasksImage());
+  }
+
+  Column listTasks() {
+    return Column(
+      children: [
+        SizedBox(
+          height: 30,
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: display_list!.length,
+            itemBuilder: (context, index) {
+              return ListTileSearchedUpcomingTasks(index, context);
+            },
+          ),
+        )
+      ],
+    );
   }
 
   ListTile ListTileSearchedUpcomingTasks(int index, BuildContext context) {
@@ -141,6 +147,16 @@ class _TaskUpcomingViewState extends State<TaskUpcomingView> {
                   ))),
         );
       },
+    );
+  }
+
+  Widget noTasksImage() {
+    return Center(
+      child: Image.asset(
+        'lib/assets/images/checknull.png',
+        width: 200,
+        height: 200,
+      ),
     );
   }
 }

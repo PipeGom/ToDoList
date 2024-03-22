@@ -12,7 +12,7 @@ class TaskListController {
           'Cepillarle los dientes al perro'),
       Task('Task 2', true, DateTime(2024, 3, 19), 'Sacar la basura'),
       Task('Task 3', false, DateTime(2024, 3, 30), 'Hacer la cena'),
-      Task('Task 4', false, DateTime(2024, 3, 30),
+      Task('Tarea Hoy', false, DateTime.now(),
           'Estudiar para el examen de investigacion de operaciones, y luego ir a entrenar'),
     ];
   }

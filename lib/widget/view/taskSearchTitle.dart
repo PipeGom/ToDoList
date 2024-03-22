@@ -16,6 +16,7 @@ class TaskSearchTitle extends StatefulWidget {
 class _TaskSearchTitleState extends State<TaskSearchTitle> {
   TextEditingController _textController = TextEditingController();
   List<Task>? display_list;
+  bool _hasTasks = false;
 
   @override
   void initState() {
@@ -41,42 +42,46 @@ class _TaskSearchTitleState extends State<TaskSearchTitle> {
 
   @override
   Widget build(BuildContext context) {
+    _hasTasks = widget.con!.tasks.isNotEmpty;
     return Scaffold(
         appBar: AppBar(
           title: Text('Buscar tarea'),
         ),
-        body: Column(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(width: 60),
-                  Expanded(
-                      child: TextField(
-                    decoration: InputDecoration(labelText: 'Titulo'),
-                    onChanged: (value) => updateList(value),
-                  )),
-                  IconButton(
-                      onPressed: () {}, icon: Icon(Icons.search_outlined)),
-                  SizedBox(width: 30),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: display_list!.length,
-                itemBuilder: (context, index) {
-                  return ListTileSearchedTasks(index, context);
-                },
-              ),
-            )
-          ],
-        ));
+        body: _hasTasks ? taskFound(context) : noTasksImage());
+  }
+
+  Column taskFound(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(width: 60),
+              Expanded(
+                  child: TextField(
+                decoration: InputDecoration(labelText: 'Titulo'),
+                onChanged: (value) => updateList(value),
+              )),
+              IconButton(onPressed: () {}, icon: Icon(Icons.search_outlined)),
+              SizedBox(width: 30),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: display_list!.length,
+            itemBuilder: (context, index) {
+              return ListTileSearchedTasks(index, context);
+            },
+          ),
+        )
+      ],
+    );
   }
 
   ListTile ListTileSearchedTasks(int index, BuildContext context) {
@@ -151,6 +156,36 @@ class _TaskSearchTitleState extends State<TaskSearchTitle> {
                   ))),
         );
       },
+    );
+  }
+
+  Widget noTasksImage() {
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(width: 60),
+            Expanded(
+                child: TextField(
+              decoration: InputDecoration(labelText: 'Titulo'),
+              onChanged: (value) => updateList(value),
+            )),
+            IconButton(onPressed: () {}, icon: Icon(Icons.search_outlined)),
+            SizedBox(width: 30),
+          ],
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.24,
+        ),
+        Center(
+          child: Image.asset(
+            'lib/assets/images/checknull.png',
+            width: 200,
+            height: 200,
+          ),
+        ),
+      ],
     );
   }
 }

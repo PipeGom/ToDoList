@@ -20,6 +20,7 @@ class TaskListView extends StatefulWidget {
 
 class _TaskListViewState extends State<TaskListView> {
   late TaskListController _con;
+  bool _hasTasks = false;
 
   @override
   void initState() {
@@ -34,27 +35,29 @@ class _TaskListViewState extends State<TaskListView> {
 
   @override
   Widget build(BuildContext context) {
+    _hasTasks = _con.tasks.isNotEmpty;
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TaskCreateView(
-                          controller: _con,
-                        )));
-          },
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => TaskCreateView(
+                        controller: _con,
+                      )));
+        },
+      ),
+      drawer: SafeArea(
+        child: DrawerWidget(
+          con: _con,
         ),
-        drawer: SafeArea(
-          child: DrawerWidget(
-            con: _con,
-          ),
-        ),
-        appBar: AppBar(
-          title: Text('ToDoList'),
-        ),
-        body: taskList());
+      ),
+      appBar: AppBar(
+        title: Text('Mis Tareas'),
+      ),
+      body: _hasTasks ? taskList() : noTasksImage(),
+    );
   }
 
   Widget taskList() {
@@ -139,6 +142,16 @@ class _TaskListViewState extends State<TaskListView> {
                   ))),
         );
       },
+    );
+  }
+
+  Widget noTasksImage() {
+    return Center(
+      child: Image.asset(
+        'lib/assets/images/checknull.png',
+        width: 200,
+        height: 200,
+      ),
     );
   }
 }

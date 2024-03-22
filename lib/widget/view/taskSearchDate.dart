@@ -16,6 +16,7 @@ class TaskSearchDate extends StatefulWidget {
 class _TaskSearchDateState extends State<TaskSearchDate> {
   TextEditingController _textController = TextEditingController();
   List<Task>? display_list;
+  bool _hasTasks = false;
 
   @override
   void initState() {
@@ -44,25 +45,31 @@ class _TaskSearchDateState extends State<TaskSearchDate> {
 
   @override
   Widget build(BuildContext context) {
+    _hasTasks = widget.con!.tasks.isNotEmpty;
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Esto es lo que tienes para hoy!'),
+      appBar: AppBar(
+        title: Text('Esto es lo que tienes para hoy!'),
+      ),
+      body: _hasTasks ? listTasks() : noTasksImage(),
+    );
+  }
+
+  Column listTasks() {
+    return Column(
+      children: [
+        SizedBox(
+          height: 30,
         ),
-        body: Column(
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: display_list!.length,
-                itemBuilder: (context, index) {
-                  return ListTileTodayTasks(index, context);
-                },
-              ),
-            )
-          ],
-        ));
+        Expanded(
+          child: ListView.builder(
+            itemCount: display_list!.length,
+            itemBuilder: (context, index) {
+              return ListTileTodayTasks(index, context);
+            },
+          ),
+        )
+      ],
+    );
   }
 
   ListTile ListTileTodayTasks(int index, BuildContext context) {
@@ -137,6 +144,16 @@ class _TaskSearchDateState extends State<TaskSearchDate> {
                   ))),
         );
       },
+    );
+  }
+
+  Widget noTasksImage() {
+    return Center(
+      child: Image.asset(
+        'lib/assets/images/checknull.png',
+        width: 200,
+        height: 200,
+      ),
     );
   }
 }

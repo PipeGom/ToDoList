@@ -56,13 +56,14 @@ class _TaskCreateViewState extends State<TaskCreateView> {
             margin: EdgeInsets.symmetric(horizontal: 40),
             child: TextField(
               controller: _dateCon,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Fecha límite',
                 filled: true,
                 prefixIcon: Icon(Icons.calendar_today),
                 enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
                 focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.purple)),
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 253, 228, 199))),
               ),
               readOnly: true,
               onTap: () {
@@ -70,13 +71,16 @@ class _TaskCreateViewState extends State<TaskCreateView> {
               },
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
+                  style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                          Color.fromARGB(255, 253, 233, 209))),
                   onPressed: () {
                     widget.controller.createTask(
                         _textTitulo, _textDescription, _dateCon, context);
@@ -94,10 +98,13 @@ class _TaskCreateViewState extends State<TaskCreateView> {
                     }
                   },
                   child: Text('Crear')),
-              SizedBox(
+              const SizedBox(
                 width: 30,
               ),
               ElevatedButton(
+                  style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                          Color.fromARGB(255, 253, 233, 209))),
                   onPressed: () {
                     Navigator.push(
                         context,
