@@ -101,7 +101,18 @@ class _TaskDetailViewState extends State<TaskDetailView> {
                             backgroundColor: MaterialStatePropertyAll(
                                 Color.fromARGB(255, 253, 233, 209))),
                         onPressed: () {
+                          // FireBase
+                          // Modificamos la tarea seleccionada
+                          widget.task.title = _textTitulo.text;
+                          widget.task.description = _textDescription.text;
+                          widget.task.deadLine = DateTime.parse(_dateCon.text);
+
+                          widget.controller
+                              .updateTaskFirebaseWithId(widget.task, context);
+                          // FireBase
+
                           widget.controller.updateTask(
+                              widget.task,
                               _textTitulo,
                               _textDescription,
                               _dateCon,

@@ -1,8 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_list/firebase_options.dart';
 import 'package:to_do_list/widget/view/taskListView.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Ensure that the Flutter app initializes the Firebase app
+
+  await Firebase.initializeApp(
+    // Initialize the Firebase app
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

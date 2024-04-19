@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/controller/taskController.dart';
+import 'package:to_do_list/models/task.dart';
 import 'package:to_do_list/widget/view/taskListView.dart';
 
 class TaskCreateView extends StatefulWidget {
@@ -82,8 +83,14 @@ class _TaskCreateViewState extends State<TaskCreateView> {
                       backgroundColor: MaterialStatePropertyAll(
                           Color.fromARGB(255, 253, 233, 209))),
                   onPressed: () {
-                    widget.controller.createTask(
-                        _textTitulo, _textDescription, _dateCon, context);
+                    // para firebase
+                    Task task = Task(_textTitulo.text, false,
+                        DateTime.parse(_dateCon.text), _textDescription.text);
+                    widget.controller.createTaskFirebaseWithId(task, context);
+
+                    widget.controller.createTask(_textTitulo, _textDescription,
+                        _dateCon, context, task.id);
+                    //FIn fireBase
                     print("Task created");
                     setState(() {});
                     if (_textTitulo.text != '' &&

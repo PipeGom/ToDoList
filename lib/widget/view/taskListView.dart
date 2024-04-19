@@ -1,7 +1,4 @@
-import "dart:async";
-
 import "package:flutter/material.dart";
-import "package:flutter/scheduler.dart";
 
 import "package:to_do_list/controller/taskController.dart";
 import "package:to_do_list/models/task.dart";
@@ -61,15 +58,28 @@ class _TaskListViewState extends State<TaskListView> {
   }
 
   Widget taskList() {
-    return ListView.builder(
-        itemCount: _con.tasks.length,
-        itemBuilder: (context, index) {
-          Task task = _con.tasks[index];
-          int day = task.deadLine.day;
-          int year = task.deadLine.year;
-          int month = task.deadLine.month;
-          return tasks(task, day, month, year, context, index);
-        });
+    return FutureBuilder<List<Task>>(
+      future: _con.getTaskFirebase(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          List<Task> tasks = snapshot.data!;
+          return ListView.builder(
+            itemCount: tasks.length,
+            itemBuilder: (context, index) {
+              Task task = tasks[index];
+              int day = task.deadLine.day;
+              int year = task.deadLine.year;
+              int month = task.deadLine.month;
+              return this.tasks(task, day, month, year, context, index);
+            },
+          );
+        }
+      },
+    );
   }
 
   ListTile tasks(Task task, int day, int month, int year, BuildContext context,
@@ -107,6 +117,7 @@ class _TaskListViewState extends State<TaskListView> {
                     onPressed: () {
                       setState(() {
                         _con.deleteTask(task, context);
+                        _con.removeTaskFirebaseWithId(task.id);
                       });
                     },
                     icon: Icon(
